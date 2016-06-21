@@ -1,0 +1,43 @@
+<ion-view view-title="{{title}}">
+   <ion-content ng-controller="AppCtrl">
+   		<div class="list card">
+
+		  <div class="item item-avatar">
+		    <img src="img/logo.svg">
+		    <h2>Welcome {{currentUser.username}}</h2>
+		    <p>{{day}}, {{currDate.month}} {{currDate.date}}</p>
+		  </div>
+
+		  <div class="item item-body">
+		    <!-- <img class="full-image" src=""> -->
+		    <p>
+		      <b>
+			      {{deliveries.length}} Deliveries Today<br>
+			      {{pharmacyInfoMap.size}} Pharmacies Active Today<br>
+			      {{activeDriversMap.size}} Drivers Online Today<br>
+			      {{totalPending[0]}} pending orders <font class="assertive">(${{totalPending[1]}})<br></font>
+			      {{totalInProgress[0]}} In progress orders <font class="energized">(${{totalInProgress[1]}})<br></font>
+			      {{totalCompleted[0]}} Completed orders <font class="balanced">(${{totalCompleted[1]}})<br></font> 
+		      </b>
+		    </p>
+		    <p>
+		      <a href="#" class="subdued">Transcript <i class="icon ion-pie-graph"></i> </a>
+		      <a href="#" class="subdued">Email <i class="icon ion-ios-email"></i> </a>
+		    </p>
+		  </div>
+
+		</div>
+
+		<ion-list>
+		    <ion-item ng-repeat="pharmacy in pharmacyOrdersArray">
+		        <a class="item item-icon-left" ng-click="viewPharmacy(pharmacyUserMap.get(pharmacy.id),pharmacy)">
+				    <i class="icon ion-ios-pulse-strong"></i>
+				    	<b><p>{{pharmacyInfoMap.get(pharmacy.id).get("businessName")}}</p></b>
+					<span class="badge badge-assertive">{{pharmacy.pending.length}}</span>
+				 </a>
+		    </ion-item>
+		</ion-list>
+		
+
+   </ion-content>
+</ion-view>

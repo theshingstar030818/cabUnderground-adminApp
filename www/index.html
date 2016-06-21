@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    
+    <!-- cordova script (this will be a 404 during development) -->
+    
+    <!-- your app's js -->
+    
+    <!-- Parse stuff -->
+    <script type="text/javascript" src="https://www.parsecdn.com/js/parse-1.6.14.min.js"></script>
+    <script type="text/javascript">
+        Parse.initialize("tSXUDNqvPmRtAnPBQmH7CWMm1iLN63CMa7Qb26OQ", "pXzbpwDlbMZbMaDEXEZwToTzdo3TL4IHLciHKKKs");
+        Parse.serverURL = 'https://test.pacecouriers.com/parse';
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+
+  </head>
+
+  <body class="padding">
+
+    <div class="bar bar-header bar-assertive" title="">
+      <h1 class="title">Pace Drive</h1>
+    </div>
+    
+    <ion-view class="padding">
+    
+        <ion-content >
+
+            <div class="list">
+
+                <div class="row">
+                  <div class="col col-33 col-offset-33">
+                    <!-- <img src="avatar.jpg"> -->
+                  </div>
+                  
+                </div>
+
+                <label class="item item-input">
+                    <span class="input-label">Username</span>
+                <input type="text" id="username">
+                </label>
+
+                <label class="item item-input">
+                    <span class="input-label">Password</span>
+                <input type="password" id="password">
+                </label>
+                
+                <button class="button button-block button-assertive" onclick="login()">
+                    Sign In
+                </button>
+                
+            </div>
+
+        </ion-content>
+
+    </ion-view>
+
+
+  
+  </body>
+</html>
+
+<script type="text/javascript">
+
+function login(){
+  var username = document.getElementById('username').value;
+  var password = document.getElementById('password').value;
+
+  Parse.User.logIn(username, password , {
+    success: function(user) {
+      if(user.get("isAdmin") != true){
+        Parse.User.logOut();
+        alert("Please login with admin credentials");
+      }else{
+        var JSON_user = JSON.stringify(user);
+        JSON_user = JSON.parse(JSON_user);
+        if(JSON_user.isAdmin == true){
+          var objectString = JSON.stringify(user);
+          console.log("login successful"); 
+          // set user in scope so it can be accessed by other controllers here
+          localStorage.setItem('currentPaceUser', JSON.stringify(user));
+          window.location.href = "home.html";
+        }else{
+          alert("Invalid Credentials");
+        }
+      }
+    },
+    error: function(user, error) {
+      console.log("login unsuccessful");
+      alert("Error: " + error.code + " " + error.message);
+    }
+  });
+}
+
+</script>

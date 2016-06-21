@@ -1,0 +1,90 @@
+<ion-view view-title="{{title}}">
+   <ion-content class="has-footer">
+   		
+   		<!-- <div id="map" data-tap-disabled="true"></div> -->
+
+   		<div class="list card">
+
+		  <div class="item item-avatar item-button-right">
+		    <img src="{{currentAvatar}}">
+		    <h2>{{currentOrders[0].get("patientId").get("name")}} </h2>
+		    <p>{{currentOrders[0].get("patientId").get("address")}}</p>
+		    <button class="button button-assertive">
+		      <i class="icon ion-map"></i>
+		    </button>		  
+		  </div>
+
+		  <div class="item item-body">
+		    <p>
+		    	<b>
+		    		<font>Pharmacy : </font><font class="">{{currentPharmacy.get("pharmacyInfo").get("businessName")}} </font><br>
+		    		<font>Date : {{deliveryDate}}</font><br>
+		    		<font class="{{deliveryStatusColor}}">Status : {{currentOrders[0].get("deliveryStatus")}}</font><br>
+		    		<font ng-show="showDriver">Driver : {{currentOrders[0].get("driverId").get("firstName")}} {{currentOrders[0].get("driverId").get("lastName")}}<br></font>
+		    		<!-- patient signature -->
+		    		<div ng-show="showSignature">
+		    			<img  class="full-image" src="data:{{signatureImage}}"><br>
+		    			<font>Time Stamp : {{signatureTimeStamp}}</font> <br>
+		    		</div>
+		    		
+
+
+				</b> 
+		    </p>
+		    
+		    <div ng-show="showDriverSelector">
+	   			<label class="item item-input item-select">
+				    <div class="input-label">
+				        Select Driver
+				    </div>
+				    <select ng-model="filterDriverCondition.driverSelected" ng-change="driverSelected()" >
+					    <option ng-repeat="driver in drivers" 
+					    		ng-selected=""
+					            value="{{driver}}">
+					      		{{driver.get("firstName")}},{{driver.get("lastName")}}
+					    </option>
+					</select>
+				</label>
+				<br>
+	   		</div>
+	   		<div ng-show="showDriverCardDiv" class="list card">
+			  <div class="item item-avatar item-button-right">
+			    <img src="img/ironman.jpg">
+			    <h2>{{currentDriverSelected.firstName}} {{currentDriverSelected.lastName}}</h2>
+			    <p>{{currentDriverSelected.driverMobile}}</p>
+			    <button class="button button-assertive">
+			      <i class="icon ion-ios-telephone"></i>
+			    </button>		  
+			  </div>
+			  <div class="item item-body">
+			    <p>
+			    	<b>
+						<font class="assertive">{{currentOrders.length}} </font> 
+						<font>deliveries by </font>
+						<font class="assertive">{{currentPharmacy.get("pharmacyInfo").get("businessName")}} </font>
+						<font>selected for </font>
+						<font class="assertive">{{currentDriverSelected.firstName}}</font>
+					</b> 
+			    </p>
+			    <button class="button button-full button-assertive" ng-click="assigneDriverFinalize()">
+				  	Assign to {{currentDriverSelected.firstName}} 
+					<i class="icon ion-model-s"></i>
+				</button>
+			  </div>
+			</div>
+		    
+		  </div>
+		</div>
+
+   </ion-content>
+
+   	<ion-footer-bar align-title="left" class="bar-assertive">
+	  	<div class="buttons">
+		</div>
+		<h1 class="title"></h1>
+		<div class="buttons">
+			
+		</div>
+	</ion-footer-bar>
+
+ </ion-view>
